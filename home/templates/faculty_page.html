@@ -1,0 +1,63 @@
+{% extends 'homebase.html' %}
+{% load static %}
+{% block title %}{{ category.title }}{% endblock %}
+{% block keywords %}{{ category.keywords }}{% endblock %}
+{% block description %}{{ category.description }}{% endblock %}
+
+{% block sidebar %}{% include 'sidebar.html' %} {% endblock %}
+
+{% block body %}
+    <div id="breadcrumb">
+        <div class="container">
+            <ul class="breadcrumb">
+                <li><a href="/">Home</a></li>
+                <li class="active">{{ dars.yunalish.fan }}</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="container">
+            <div  class="row">
+
+                <div class="col-md-10">
+                    <table  class="table" border="2">
+                        <tr>
+                            <th class="text-center">Vaqt</th>
+                            <th class="text-center">Dushanba</th>
+                            <th class="text-center">Seshanba</th>
+                            <th class="text-center">Chorshanba</th>
+                            <th class="text-center">Payshanba</th>
+                            <th class="text-center">Juma</th>
+                            <th class="text-center">Shanba</th>
+                        </tr>
+                        {% for time in dars %}
+                        <tr>
+                                <td class="text-center">{{ time.time }}</td>
+                                {% for week in time.courses %}
+                                    {% if week.course_list %}
+                                        <td>
+                                            {% for course in week.course_list %}
+                                                <a href="{{ course.zoom }}">
+                                                 Fan: {{ course.fan }}<br>Xona: {{ course.room }}<br>O'qituvchi: {{ course.teacher }}<br>Guruh: {{ course.guruh }}
+                                                Kirish
+                                                </a>
+                                                <hr>
+                                            {% endfor %}
+                                        </td>
+
+                                    {% else %}
+                                        <td></td>
+                                    {% endif %}
+                                {% endfor %}
+
+                        </tr>
+                            {% endfor %}
+
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block footer %} {% include 'footer.html' %}{% endblock %}
